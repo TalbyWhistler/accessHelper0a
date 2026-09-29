@@ -75,5 +75,6 @@ create table loginTable(
 	email varchar(30) not null,
     password varchar(50) not null,
     status char(2),
-    lastlogin date
+    logindate date,
+    logintoken varchar(20)
 );

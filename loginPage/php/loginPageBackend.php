@@ -15,7 +15,7 @@
                 $password=$functionParams["password"];
                
                 //$returnMessage='Login has fired with email '. $email .' and password '.$password;
-                $returnMessage=loginFunction($email,$password);
+                $returnMessage=attemptLogin($email,$password);
                 break;
             }
     }

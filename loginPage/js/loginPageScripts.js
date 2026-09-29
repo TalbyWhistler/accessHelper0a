@@ -3,7 +3,7 @@ function loginSubmit()
     console.log("Login submit button has been hit");
     let passwordInput=document.getElementById("passwordInput").value;
     let emailInput=document.getElementById("emailInput").value;
-    console.log("Email is " + emailInput + " and password is " + passwordInput);
+   // console.log("Email is " + emailInput + " and password is " + passwordInput);
     let functionName='loginAttempt';
     let functionParams={email:emailInput,password:passwordInput};
     callLoginBackend(functionName,functionParams,console.log);
