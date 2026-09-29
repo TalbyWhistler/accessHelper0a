@@ -1,0 +1,79 @@
+drop table org;
+create table org(
+orgId integer(20) PRIMARY KEY AUTO_INCREMENT,
+orgName varchar(100));
+alter table org AUTO_INCREMENT=10000;
+
+drop table user;
+create table user(
+	userId integer (20) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    orgId integer(20) NOT NULL,
+    userEmail varchar(30),
+    userTitle varchar(20),
+    userTeam varchar(40)
+);
+alter table user AUTO_INCREMENT=10000;
+
+drop table requester;
+create table requester(
+	requesterId integer(20) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    orgId integer(20) NOT NULL,
+    requesterName varchar(30),
+    requesterTitle varchar(40),
+    requesterEmail varchar(30)
+);
+alter table requester AUTO_INCREMENT=10000;
+
+drop table resource;
+create table resource(
+	resourceId integer(20) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    orgId integer(20) NOT NULL,
+    approverId integer(20) NOT NULL,
+    resourceName varchar(40)
+);
+alter table resource AUTO_INCREMENT=10000;
+
+drop table approver;
+create table approver(
+	approverId integer(20) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    resourceId integer(20) NOT NULL,
+    orgId integer(20) NOT NULL,
+   
+    approverName varchar(40),
+    approverEmail varchar(30),
+    approverTitle varchar(40)
+);
+alter table approver AUTO_INCREMENT=10000;
+drop table request;
+create table request(
+	requestId integer(30) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    requesterId integer(30) NOT NULL,
+    resourceId integer(30) NOT NULL,
+    approverId integer(30) NOT NULL,
+    orgId integer(30) NOT NULL,
+    requestDateTime DATE,
+    requestStatus varchar(10),
+    responseCode integer(10)
+);
+alter table request AUTO_INCREMENT=10000;
+
+drop table response;
+create table response(
+	responseId integer(30) PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    requestId integer(30) NOT NULL,
+    approverId integer(30) NOT NULL,
+    orgId integer(30) NOT NULL,
+    requestDateTime DATE,
+    responseDateTime DATE,
+    responseCode integer(10)
+);
+
+alter table response AUTO_INCREMENT=10000;
+
+drop table logintable;
+create table loginTable(
+	email varchar(30) not null,
+    password varchar(50) not null,
+    status char(2),
+    lastlogin date
+);

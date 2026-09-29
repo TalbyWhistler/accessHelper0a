@@ -9,6 +9,7 @@
 <body>
         <?php include 'php/mainPageFrontend.php' ?>
         <?php include 'php/connect.php' ?>
+        <?php include 'loginPage/index.php' ?>
         <script src="js/frontPageScripts.js"></script>
 </body>
 </html>
