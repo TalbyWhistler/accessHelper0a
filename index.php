@@ -8,6 +8,7 @@
 </head>
 <body>
         <?php include 'php/mainPageFrontend.php' ?>
+        <?php include 'php/connect.php' ?>
         <script src="js/frontPageScripts.js"></script>
 </body>
 </html>
