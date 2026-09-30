@@ -1,3 +1,17 @@
+
+function attachStyleSheet()
+{
+    console.log("ATTACH style sheet");
+    const styleSheetLocation='css/loginStyles.css';
+    const styleLink=document.createElement('link');
+    styleLink.rel='stylesheet';
+    styleLink.type='text/css';
+    styleLink.href=styleSheetLocation;
+    document.head.appendChild(styleLink);
+    
+}
+
+
 function loginSubmit()
 {
     console.log("Login submit button has been hit");
@@ -31,7 +45,7 @@ function writeToStatusL(message)
 
 function callLoginBackend(functionName,params,callback)
 {
-    let fetchTarget='loginPage/php/loginPageBackend.php';
+    let fetchTarget='php/loginPageBackend.php';
     let inputPackage={function:functionName,params:params};
     
     inputPackage=JSON.stringify(inputPackage);
@@ -63,6 +77,7 @@ function checkForLogin()
 function loginPageInit()
 {
     checkForLogin();
+    attachStyleSheet();
 }
 
 function handleLogoutSubmit()

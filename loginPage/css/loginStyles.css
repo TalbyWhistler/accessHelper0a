@@ -1,6 +1,33 @@
-<?php
-      include_once 'tools.php';
-      $title=createElement('h2','loginTitle','title','accessHelper');
+#loginTitle {
+    color:blue;
+}
+
+#loginContainer
+{
+    background-color: aquamarine;
+    background-color: rgb(82, 146, 210);
+    color:rgb(255,212,59);
+    border-radius:3%;
+    max-width:400px;
+    border:grey 2px solid;
+    font-size:18px;
+}
+
+label {
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+button
+{
+    width:100px;
+    border-radius:2px;
+}
+
+
+
+
+/**
+      $title=createElement('h2','loginTitle','title','Login Area');
       $emailInput=createInput('emailInput','userInput');
       $passwordInput='<input type="password" id="passwordInput" class="input"/>';
       $emailLabel=createElement('label','emailLabel','inputLabel','Email');
@@ -13,18 +40,13 @@
       $br='<br>';
       $statusIndicator=createElement('label','statusIndicator','statusIndicator','Ok');
      
-      $scriptLink='<script src="js/loginPageScripts.js" ></script>';
+      $scriptLink='<script src="loginPage/js/loginPageScripts.js" ></script>';
       $loginIndicator=createElement('label','loginStatusIndicator','statusIndicator','');
 
       $testButton0a=createButton('testButton0','testButton','testFunction0a','Test Button 0a');
 
-      $createLink='
-        <a href="../index.php">No account? Make one here!</a>
-      ';
 
-      $loginPanelContents=$title.
-      $br.
-        $loginIndicator.
+      $loginPanelContents=$loginIndicator.
       $br.
       $emailLabel.
         $br.
@@ -36,21 +58,15 @@
         $br.
         $loginSubmit.$logoutButton.
         $br.
-        $statusIndicator.
-        $br.
-        $createLink;
+        $statusIndicator;
         
         
       $loginPanel=createElement('div','loginPanelContainer','panelContainer',$loginPanelContents);
       $loginForm=createElement('form','loginForm','form',$loginPanel);
-      $panelContainer=createElement('div','loginContainer','areaContainer',$loginPanel);
-
 
       $totalOutput=
-            
-            $panelContainer.
+            $title.
+            $loginPanel.
           //  $testButton0a.
             $scriptLink;
-
-      echo $totalOutput;
-?>
+*/ 
