@@ -13,9 +13,19 @@
                 $functionParams=$jsonInput["params"];
                 $email=$functionParams["email"];
                 $password=$functionParams["password"];
-               
+                
                 //$returnMessage='Login has fired with email '. $email .' and password '.$password;
                 $returnMessage=attemptLogin($email,$password);
+                break;
+            }
+        case 'checkIfLoggedIn':
+            {
+                $returnMessage=checkIfLoggedIn();
+                break;
+            }
+        case 'logout':
+            {
+                $returnMessage=logout();
                 break;
             }
     }

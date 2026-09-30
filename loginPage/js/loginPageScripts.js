@@ -6,11 +6,28 @@ function loginSubmit()
    // console.log("Email is " + emailInput + " and password is " + passwordInput);
     let functionName='loginAttempt';
     let functionParams={email:emailInput,password:passwordInput};
-    callLoginBackend(functionName,functionParams,console.log);
+    callLoginBackend(functionName,functionParams,writeToStatusL);
+   
+}
+
+function writeToStatusLogin(message)
+{
+    document.getElementById("loginStatusIndicator").innerHTML=message;
+    setTimeout(checkForLogin(),2000);
+    
 }
 
 
+function writeToStatus(message)
+{
+    document.getElementById("statusIndicator").innerHTML=message;
+}
 
+function writeToStatusL(message)
+{
+    document.getElementById("statusIndicator").innerHTML=message;
+    checkForLogin();
+}
 
 function callLoginBackend(functionName,params,callback)
 {
@@ -28,3 +45,40 @@ function callLoginBackend(functionName,params,callback)
     .then(response=>response.json())
     .then(data=>callback(data));
 }
+
+
+function writeToLoggedIn(message)
+{
+    document.getElementById("loginStatusIndicator").innerHTML=message;
+}
+
+function checkForLogin()
+{
+    console.log("Checking if logged in");
+    console.log("For real");
+    callLoginBackend("checkIfLoggedIn","",writeToLoggedIn);
+}
+
+
+function loginPageInit()
+{
+    checkForLogin();
+}
+
+function handleLogoutSubmit()
+{
+    console.log("logout");
+    callLoginBackend("logout","",writeToStatusL);
+    
+     //setTimeout(checkForLogin,2000);
+}
+
+function testFunction0a()
+{
+    console.log("Test function");
+    checkForLogin();
+}
+
+
+
+loginPageInit();

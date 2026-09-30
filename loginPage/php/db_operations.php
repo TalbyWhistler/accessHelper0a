@@ -59,5 +59,50 @@ function attemptLogin($email,$password)
 }
 
 
+function checkIfLoggedIn()
+{
+    include 'connect.php';
+    $cookieValues=$_COOKIE["accessHelper"]??'';
+    $cookieUsername=$_COOKIE["accessHelper"]??'';
+    $jsonValues=json_decode($cookieValues,true);
+  //  return json_encode($jsonValues);
+    $loggedInUser=$jsonValues["email"]??'';
+    $loggedInToken=$jsonValues["token"]??'';
+  //  return json_encode($jsonValues["username"]);
+   // $cookieUsername=$_COOKIE["linuxLab"];
+   // $cookieToken=$_COOKIE["linuxLab"]["token"]??'';
+   // return $cookieUsername;
+    $stmt=$conn->prepare("select count(*) as 'total' from logintable where logintoken=? and email=? and logindate=current_date()");
+    $stmt->bind_param("ss",$loggedInToken,$loggedInUser);
+    $stmt->execute();
+    $outputArray=[];
+    $result=$stmt->get_result();
+    while($row=$result->fetch_assoc())
+        {
+            $value=$row["total"];
+            array_push($outputArray,$value);
+        }
+    if($outputArray[0]>0)
+        {
+            return ' logged in.';
+        }
+    else 
+        {
+            return ' not logged in.';
+        }
+}
+
+
+function logout()
+{
+    include 'connect.php';
+    $cookieUsername=$_COOKIE["accessHelper"]["email"]??'';
+    $cookieToken=$_COOKIE["accessHelper"]["token"]??'';
+    $cookieValues=['email'=>'','token'=>''];
+    $jsonValues=json_encode($cookieValues);
+    setcookie('accessHelper',$jsonValues);
+    return 'Successfully logged out.';
+}
+
 
 ?>
