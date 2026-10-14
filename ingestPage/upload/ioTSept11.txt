@@ -1,0 +1,118 @@
+second section Tuesday 9am-12pm
+lszpaper vissers side hustle process optimizing
+3hrs lab 1 hr blended
+lowest grade is dropped 
+must achieve 50 plus on tests to pass
+2 late days per lab/assignment 
+check 'late day bank'
+
+go 2 supercrawl!
+
+things=
+small, cheap, programmable devices with networking
+
+
+shadow side of IoT
+makes a lot of crappy stuff....
+
+predictive maintenance is big
+
+carego, burlington, autonomous warehouse tech
+(hires mohawk folk)
+
+IoT device
+embedded-no conventional i/o
+(calculator, runs a program but can't change the program)
+
+two broad aspects:
+1.  Device Programming
+2.  Handle Data
+
+challenges
+security, privelege levels, memory protection
+
+os may or may not be there
+but does have network encryption
+(crashing is your problem)
+
+c is the lingo
+
+debugging, print statments, no variable tracking/breakpoints
+
+crashes cause auto/restart
+
+32-bit dual core
+520K Ram
+2.4 Ghz 
+Blue tooth
+Interfaces to sensors i/o
+
+chip is mounted on a carrier board
+
+vscode plus platformIO
+desktop is x86 processor
+https://platformio.org/
+
+code is in c
+
+Arduino framework.  
+Allows code to run on may different devices
+
+Another framework 
+Espressif also provides framework specific to the hardware ESP IDF.
+
+cite/specify ai tool prompt etc, understand the submitted code
+
+vs code, alien on the left side
+extension/platform io
+then small home icon on lower left
+new project
+choose board-
+espressif esp32 dev module
+
+devices
+USB-serial ch340 (note comx)
+
+(could run vscode as admin)
+
+platformio.ini
+
+platform io
+
+[env:esp32dev]
+platform = espressif32
+board = esp32dev
+framework = arduino
+
+
+upload_speed=921600
+monitor_speed=115200
+
+main is baked into Arduino
+
+need two function:
+
+setup 
+and
+loop
+
+serial.begin must match monitor speed
+
+main.cpp
+#include <Arduino.h>
+
+void setup()
+{
+  // initialize the hardward 
+  // setup serial monitor 
+  Serial.begin(115200);
+ Serial.println("Hello World!\n");
+}
+
+next up, wiring up the whole board
+
+start w/
+unplug power
+course module/course resources/WiringGuide
+
+show Wayne before power on

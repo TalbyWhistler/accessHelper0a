@@ -45,7 +45,7 @@ function writeToStatusL(message)
 
 function callLoginBackend(functionName,params,callback)
 {
-    let fetchTarget='php/loginPageBackend.php';
+    let fetchTarget=' php/loginPageBackend.php';
     let inputPackage={function:functionName,params:params};
     
     inputPackage=JSON.stringify(inputPackage);
