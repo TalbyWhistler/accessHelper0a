@@ -28,6 +28,18 @@
                 $returnMessage=readFromResource2();
                 break;
             }
+        case 'submitMergeRecord':
+                
+            {
+                $params=$jsonInput["params"];
+                $firstName=$params["firstName"];
+                $lastName=$params["lastName"];
+                $title=$params["title"];
+                $resource=$params["resource"];
+                $email=$params["email"];
+                $returnMessage=mergeRecord($firstName,$lastName,$title,$resource,$email);
+                break;
+            }
         
     }
     echo json_encode($returnMessage);

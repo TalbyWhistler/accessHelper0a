@@ -29,6 +29,22 @@
 
     }
 
+    function mergeRecord($firstName,$lastName,$title,$resource,$email)
+    {
+        $returnMessage='MergeRecord has fired in operations';
+        include_once 'connect.php';
+        $stmt=$conn->prepare("insert into resource2(approverFirstName,approverLastName,approverTitle,resourceName,approverEmail) values(?,?,?,?,?)");
+        $stmt->bind_param("sssss",$firstName,$lastName,$title,$resource,$email);
+        if($stmt->execute())
+            {
+                $returnMessage='Record updated';
+            }
+            else 
+                {
+                    $returnMessage='There was a problem updating the record.';
+                }
+        return $returnMessage;
+    }
 
     function clearUploadDirectory()
     {

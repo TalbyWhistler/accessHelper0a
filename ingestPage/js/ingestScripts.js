@@ -74,6 +74,38 @@ function mergeUpload()
 function uploadConfirm()
 {
     console.log("Upload confirm hit");
+    callBackend("readUpload","",processMerge);
+    
+}
+
+function processMerge(data)
+{
+    let itemArray=[];
+    let lineArray=data.split("\n");
+    for (let i=0;i<lineArray.length;i++)
+    {
+        itemArray=lineArray[i].split(",");
+        
+        firstName=itemArray[0];
+        lastName=itemArray[1];
+        title=itemArray[2];
+        resource=itemArray[3];
+        email=itemArray[4];
+        let params={
+            'firstName':firstName,
+            'lastName':lastName,
+            'title':title,
+            'resource':resource,
+            'email':email
+        };
+        functionName='submitMergeRecord';
+        callBackend(functionName,params,fetchResources);
+        document.getElementById("uploadOutputArea").innerHTML='';
+        document.getElementById("confirmButtonArea").innerHTML='';
+
+       // console.log(lineArray[i]);
+      
+    }
 }
 
 function uploadCancel()
@@ -105,7 +137,7 @@ function printFileInfo(fileInfo)
 
      let mergeButton=
     `
-        <button onclick="mergeUpload()">Merge Upload</button>
+        <button onclick="mergeUpload()">Merge Upload File</button>
     `;
 
     let confirmButtonArea=
