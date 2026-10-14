@@ -36,15 +36,7 @@
         $upload_dir = $current_dir.'\..\upload\\';
         $returnMessage = '';
         $dir_info = scandir($upload_dir);
-        //$returnMessage=$dir_info;
-        //$returnMessage=$upload_dir.$dir_info[2];
-       // $filePointer=fopen($upload_dir.$dir_info[2],"rw");
-        /*
-        if(unlink($upload_dir.$dir_info[2]));
-            {
-                $returnMessage=$dir_info[2]. ' deleted.';
-            }
-        */
+        
         if (sizeof($dir_info)>2)
             {
                 for($i=2;$i<sizeof($dir_info);$i++)
@@ -60,6 +52,48 @@
                     $returnMessage="No uploads to clear.";
                 }
         
+        return $returnMessage;
+    }
+
+
+    function readFromResource2()
+    {
+        include_once 'connect.php';
+        $returnMessage="Read resources operations has activated";
+        $stmt=$conn->prepare("select * from resource2");
+        $outputArray=[];
+        if($stmt->execute())
+            {
+                $results=$stmt->get_result();
+                while($row=$results->fetch_assoc())
+                    {
+                        $unitArray=['approverFirstName'=>$row["approverFirstName"],'approverLastName'=>$row["approverLastName"],'approverTitle'=>$row["approverTitle"],'resourceName'=>$row["resourceName"],'approverEmail'=>$row["approverEmail"]];
+                        array_push($outputArray,$unitArray);
+                    }
+            }
+
+        $returnMessage=$outputArray;
+        
+    /*
+        stmt=$conn->prepare("select * from notes");
+    $outputArray=[];
+    if ($stmt->execute())
+        {
+            
+            $results=$stmt->get_result();
+            while($row=$results->fetch_assoc())
+                {
+                    $unitArray=['note'=>$row["note"]];
+                    array_push($outputArray,$unitArray);
+                }
+            return $outputArray;
+        }
+        else 
+            {
+                return "statement didn't execute";
+            }
+}
+            */
         return $returnMessage;
     }
 

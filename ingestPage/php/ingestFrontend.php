@@ -24,7 +24,14 @@
     $headline=createElement('h2','ingestionHeadline','title','Access List Upload');
     $scriptLink='<script src="js/ingestScripts.js"></script>';
     $indicator=createElement('label','uploadIndicator','indicator',$indicatorMessage);
-    $testButton=createButton("processButton","submitButton","testButton","TESTO");
+    $readUploadButton=createButton("processButton","submitButton","submitButton","Read Upload File");
+    
+
+    $outputAreaTitle=createElement('h3','dbOutputTitle','title','Existing Owners and Resources');
+    $dbOutputArea=createElement('p','dbOutputArea','outputArea','');
+    $uploadOutputArea=createElement('p','uploadOutputArea','outputArea','');
+
+    
     $uploadForm = 
     '
     <form action="php/uploadSheet.php" method="post" enctype="multipart/form-data">
@@ -36,21 +43,26 @@
     ';
     // <input type="submit">
     $br='</br>';
-    $totalOutput=
+    $panelOutput=
             $headline.
             $br.
             $uploadForm.
            // $br.
             $indicator.
             $br.
-            $testButton.
+            $readUploadButton;
+
+
+    $ingestPanel=createElement('div','ingestContainer','areaContainer',$panelOutput);
+
+    $totalOutput=
+            $ingestPanel.
+            $outputAreaTitle.
+            $dbOutputArea.
+            $uploadOutputArea.
             $scriptLink;
 
-
-    $ingestContainer=createElement('div','ingestContainer','areaContainer',$totalOutput);
-
-
-    echo $ingestContainer;
+    echo $totalOutput;
 
 
 ?>

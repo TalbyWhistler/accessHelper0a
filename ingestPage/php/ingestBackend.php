@@ -18,8 +18,14 @@
         case 'readUpload':
             {
                 $returnMessage="backend readUpload activated";
-                //$returnMessage=readUpload();
-                $returnMessage=clearUploadDirectory();
+                $returnMessage=readUpload();
+                //$returnMessage=clearUploadDirectory();
+                break;
+            }
+        case 'readResources':
+            {
+                $returnMessage="Read resources has activated";
+                $returnMessage=readFromResource2();
                 break;
             }
         
