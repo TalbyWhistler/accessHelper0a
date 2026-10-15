@@ -1,0 +1,3 @@
+Austin,Powers,Man of Mystery,Sweet Car,apowers@org.org 
+James,Bond,Superspy,The Green Room,jbond@org.org
+Johnny,Dangerously,British Superspy,The Blue Room,jdangerously@org.org
