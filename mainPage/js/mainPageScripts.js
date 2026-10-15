@@ -1,5 +1,6 @@
 
-
+let userSubmittedEmail='';
+let userSubmittedResource='';
 
 function testFunction()
 {
@@ -16,7 +17,7 @@ function handleFetchResourceList(data)
 {
     let outputOpener=`<select onchange="fetchResourceInfo()"name="resourceDropdown" id="resourceDropdown">`;
     let outputCloser=`</select>`;
-    let outputMiddle='';
+    let outputMiddle='<option value=""></option>';
     console.log(data);
     for(let i = 0;i<data.length;i++)
     {
@@ -32,7 +33,6 @@ function handleFetchResourceList(data)
         outputMiddle+
         outputCloser;
     document.getElementById("dropDownArea").innerHTML=totalOutput;
-
 }
 
 
@@ -40,11 +40,18 @@ function fetchResourceInfo()
 {
     console.log("Fetch resource info");
     let resourceName=document.getElementById("resourceDropdown").value;
+    userSubmittedResource=resourceName;
     console.log(document.getElementById("resourceDropdown").value);
     let params={"resourceName":resourceName};
     let functionName="fetchResourceInfo";
     callBackend(functionName,params,handleFetchResourceInfo);
     //callBackend("fetchResourceInfo")
+    if (checkUserInfoPopulation())
+    {
+        conjureSubmitRequestButton();
+        console.log("True true!"); 
+    }
+
 }
 
 function handleFetchResourceInfo(data)
@@ -79,8 +86,66 @@ function handleUserSubmit()
     console.log('Handle user submit');
     let submittedEmail=document.getElementById("userEmailInput").value;
     let params={"userEmail":submittedEmail};
-    callBackend('userLookupByEmail',params,console.log);
+    userSubmittedEmail=submittedEmail;
+    callBackend('userLookupByEmail',params,handleUserLookupInfo );
+    if (checkUserInfoPopulation())
+    {
+        conjureSubmitRequestButton();
+        console.log("True true");
+    }
+}
+
+function handleUserLookupInfo(data)
+{
+    //console.log(data);
+    if (data.length==0)
+    {
+        //console.log('No additional requester info.');
+        document.getElementById("userInfoTextArea").innerHTML=userSubmittedEmail.length>0?userSubmittedEmail:'' + 'No additional requester info.';
+    }
+    else 
+    {
+        console.log(data);
+        let userInfo=data[0]["firstName"] + " " + data[0]["lastName"] + " " + data[0]["title"] + " " + data[0]["team"]; 
+        document.getElementById("userInfoTextArea").innerHTML=userInfo;
+
+    }
+    //checkUserInfoPopulation();
+}
+
+
+function checkUserInfoPopulation()
+{
+
+    let populated0=userSubmittedEmail;
+    let populated1=document.getElementById("resourceDropdown").value;
+    if(populated0 && populated1)
+    {
+        console.log("Both user resource request areas are populated");
+        return true;
+    }
+    return false;
+}
+
+function conjureSubmitRequestButton()
+{
+    let submitRequestButton=
+    `<button onclick='handleSubmitRequest()'>Submit</button>`;
+    document.getElementById("dropDownSubmitButtonArea").innerHTML=submitRequestButton;
+}
+
+
+function handleSubmitRequest()
+{
+    console.log("User submitted email ",userSubmittedEmail);
+    console.log("User submitted resource name ",userSubmittedResource);
+    document.getElementById("dropDownSubmitButtonArea").innerHTML='';
+    //let inputArray=['userEmailInput','userInfoTextArea','resourceListTextArea'];
     
+
+    document.getElementById("userEmailInput").value='';
+    document.getElementById("userInfoTextArea").innerHTML='';
+    document.getElementById("resourceListTextArea").innerHTML='';
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////

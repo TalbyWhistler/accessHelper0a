@@ -8,7 +8,32 @@ function testFunction()
 
 function userLookupByEmail($userEmail)
 {
+    include_once 'connect.php';
     $returnMessage='User lookup by email operations has fired with value '.$userEmail;
+    $stmt=$conn->prepare('select * from orguserinfo where email=?');
+    $stmt->bind_param("s",$userEmail);
+    $outputArray=[];
+    if ($stmt->execute())
+        {
+            //$returnMessage='Statement executed';
+            $results=$stmt->get_result();
+            while($row=$results->fetch_assoc())
+                {
+                    $unitArray=
+                    [
+                        "firstName"=>$row["firstName"],
+                        "lastName"=>$row["lastName"],
+                        "title"=>$row["title"],
+                        "team"=>$row["team"]
+                    ];
+                    array_push($outputArray,$unitArray);
+                }
+            return $outputArray;
+        }
+        else 
+            {
+                $returnMessage="Statment didn't execute";
+            }
     return $returnMessage;
 }
 

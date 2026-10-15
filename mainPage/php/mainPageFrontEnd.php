@@ -28,6 +28,7 @@
 
 
         $dropDownArea=createElement('p','dropDownArea','outputArea','');
+        $dropDownSubmitButtonArea=createElement('p','dropDownSubmitButtonArea','outputArea','');
 
         $scriptLink=
         '
@@ -44,7 +45,7 @@
 
         $resourceListPanelContents=
                     $panelLabelResources.
-                    $dropDownArea.
+                    $dropDownArea.$dropDownSubmitButtonArea.
                     $resourcesTextArea;
         $resourceListPanel=createElement('div','accessListPanel','panel',$resourceListPanelContents);
 
