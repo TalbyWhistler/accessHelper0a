@@ -25,6 +25,12 @@
                 $returnMessage="userLookupByMail backend has fired with value ".$userEmail;
                 $returnMessage=userLookupByEmail($userEmail);
                 break;
+            case('createRequest'):
+                $params=$jsonInput["params"];
+                $requesterId=$params["requesterId"];
+                $resourceName=$params["resourceId"];
+                $returnMessage=createRequest($requesterId,$resourceName);
+                break;
     }
     echo json_encode($returnMessage);
 

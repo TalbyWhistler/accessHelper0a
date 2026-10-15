@@ -1,17 +1,27 @@
 
+// global variable for the requester email once submitted
 let userSubmittedEmail='';
+
+// global variable for the name of the resource once submitted 
 let userSubmittedResource='';
 
+
+// function to test connection to the script file
 function testFunction()
 {
     console.log("Test function javascript");
     callBackend('testFunction','',console.log);
 }
 
+
+// function to fetch the resource list to populate the drop down menu
 function fetchResourceList()
 {
     callBackend('fetchResourceList','',handleFetchResourceList);
 }
+
+
+// handles the resourceList data and populates the dropDown
 
 function handleFetchResourceList(data)
 {
@@ -35,7 +45,7 @@ function handleFetchResourceList(data)
     document.getElementById("dropDownArea").innerHTML=totalOutput;
 }
 
-
+// gets first name ,last name , title etc of the approver from the resource name
 function fetchResourceInfo()
 {
     console.log("Fetch resource info");
@@ -53,6 +63,8 @@ function fetchResourceInfo()
     }
 
 }
+
+// handles the resource info once fetched and lists it in the resourceListTextArea textbox
 
 function handleFetchResourceInfo(data)
 {
@@ -80,7 +92,7 @@ function handleFetchResourceInfo(data)
     document.getElementById("resourceListTextArea").innerHTML=totalOutput;
 }
 
-
+// handles the submit button on the requester user email(or name)input.
 function handleUserSubmit()
 {
     console.log('Handle user submit');
@@ -94,6 +106,8 @@ function handleUserSubmit()
         console.log("True true");
     }
 }
+
+// handles the user email info lookup and prints out in userInfoTextArea wether there is additional information or not
 
 function handleUserLookupInfo(data)
 {
@@ -113,7 +127,7 @@ function handleUserLookupInfo(data)
     //checkUserInfoPopulation();
 }
 
-
+// to check wether the requester input and resource choice are both populated
 function checkUserInfoPopulation()
 {
 
@@ -127,6 +141,8 @@ function checkUserInfoPopulation()
     return false;
 }
 
+
+// conjures the submit request button (once checkUserInfoPopulation is true)
 function conjureSubmitRequestButton()
 {
     let submitRequestButton=
@@ -134,7 +150,7 @@ function conjureSubmitRequestButton()
     document.getElementById("dropDownSubmitButtonArea").innerHTML=submitRequestButton;
 }
 
-
+// handles the submitted request of both a requester and a resource this should transit the request to the database.  zeros out the inputs.
 function handleSubmitRequest()
 {
     console.log("User submitted email ",userSubmittedEmail);
@@ -146,6 +162,10 @@ function handleSubmitRequest()
     document.getElementById("userEmailInput").value='';
     document.getElementById("userInfoTextArea").innerHTML='';
     document.getElementById("resourceListTextArea").innerHTML='';
+
+    functionName='createRequest';
+    params={"requesterId":userSubmittedEmail,"resourceId":userSubmittedResource};
+    callBackend(functionName,params,console.log)
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
