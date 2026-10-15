@@ -80,6 +80,7 @@ function uploadConfirm()
 
 function processMerge(data)
 {
+    console.log("Process merge!!");
     let itemArray=[];
     let lineArray=data.split("\n");
     for (let i=0;i<lineArray.length;i++)
@@ -101,9 +102,9 @@ function processMerge(data)
         functionName='submitMergeRecord';
         callBackend(functionName,params,fetchResources);
         document.getElementById("uploadOutputArea").innerHTML='';
-        document.getElementById("confirmButtonArea").innerHTML='';
-
-       // console.log(lineArray[i]);
+        //document.getElementById("confirmButtonArea").innerHTML='';
+        console.log("Merge line array");
+        console.log(lineArray[i]);
       
     }
 }

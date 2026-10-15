@@ -65,7 +65,7 @@ function handleFetchResourceInfo(data)
     for (let i = 0;i < data.length;i++)
     {
         outputMiddle=outputMiddle+
-        `${data[i]["firstName"]} ${data[i]["lastName"]} ${data[i]["title"]}`;
+        `${data[i]["firstName"]} ${data[i]["lastName"]} ${data[i]["title"]}\n`;
     }
 
     let totalOutput=
