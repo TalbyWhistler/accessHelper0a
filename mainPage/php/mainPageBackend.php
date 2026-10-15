@@ -31,6 +31,11 @@
                 $resourceName=$params["resourceId"];
                 $returnMessage=createRequest($requesterId,$resourceName);
                 break;
+            case('fetchPendingRequests'):
+                
+                
+                $returnMessage=fetchPendingRequests();
+                break;
     }
     echo json_encode($returnMessage);
 

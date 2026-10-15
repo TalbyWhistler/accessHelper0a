@@ -2,6 +2,8 @@
         include_once 'tools.php';
         $title=createElement('h3','mainPageTitle','title','accessHelperMain');
         $testButton=createButton('testButton','button','testFunction','TESTO');
+
+        $sendRequestsButton=createButton('sendRequestsButton','button','sendPendingRequests','Send Requests');
         
         $userSubmitButton=createButton('userSubmitButton','button','handleUserSubmit','Submit');
         $userInfoLabel=createElement('label','userInfoLabel','label','Requester Info');
@@ -20,9 +22,15 @@
             $userInfoTextArea;
         $userInfoPanel=createElement('div','userInfoPanel','panel',$userInfoPanelContents);
 
-        
+        $pendingLabel=createElement('label','pendingRequestLabel','label','Pending Requests');
+        $pendingTextArea='<textarea id="pendingTextArea" name="pendingTextArea" rows="4" cols="40"></textarea>';
        
+        $pendingRequestsPanelContents=
+                        $pendingLabel.
+                        $br.
+                        $pendingTextArea.$sendRequestsButton;
 
+        $pendingRequestsPanel=createElement('div','pendingRequestsPanel','panel',$pendingRequestsPanelContents);
         
 
 
@@ -54,6 +62,7 @@
         $totalOutput=$title.
                     $userInfoPanel.
                     $resourceListPanel.
+                    $pendingRequestsPanel.
                     $scriptLink;
 
         echo $totalOutput;

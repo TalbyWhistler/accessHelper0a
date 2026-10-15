@@ -69,16 +69,52 @@ function createRequest($requester,$resource)
     $rln=$requesterInfoArray[0]["lastName"];
     $rt=$requesterInfoArray[0]["title"];
     $re=$resourceInfoArray[0]["resource"];
-
+    $rem=$requesterInfoArray[0]["email"];
+    $reTe=$requesterInfoArray[0]["team"];
+    $status='pending';
     $testRequestMessage =
     "
         To $fn $ln,
         This is a request for $rfn $rln, $rt to get access to the $re resource.
     ";
     // translate the above into a database/database entry
+    $stmt=$conn->prepare("insert into request2(requesterId,requesterTitle,requesterTeam,resourceId,requestStatus) values(?,?,?,?,?)");
+    $stmt->bind_param("sssss",$rem,$rt,$reTe,$re,$status);
+    if($stmt->execute())
+        {
+            $returnMessage="Record updated";
+        }
+        else 
+            {
+                $returnMessage="Error updating";
+            }
     $returnMessage = $testRequestMessage;
   
     return $returnMessage;
+}
+
+
+
+function fetchPendingRequests()
+{
+    $returnMessage='';
+    include_once 'connect.php';
+    $requestStatus='pending';
+    $stmt=$conn->prepare("select * from request2 where requestStatus=?");
+    $stmt->bind_param("s",$requestStatus);
+    $outputArray=[];
+    if ($stmt->execute())
+        {
+            $results=$stmt->get_result();
+            while($row=$results->fetch_assoc())
+                {
+                    $requesterId=$row["requesterId"];
+                    $resourceId=$row["resourceId"];
+                    $unitArray=['requester'=>$requesterId,'resource'=>$resourceId];
+                    array_push($outputArray,$unitArray);
+                }
+            return $outputArray;
+        }
 }
 
 function userLookupByEmail($userEmail)

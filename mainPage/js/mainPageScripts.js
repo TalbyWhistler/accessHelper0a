@@ -165,7 +165,32 @@ function handleSubmitRequest()
 
     functionName='createRequest';
     params={"requesterId":userSubmittedEmail,"resourceId":userSubmittedResource};
-    callBackend(functionName,params,console.log)
+    callBackend(functionName,params,mainPageInit)
+}
+
+function fetchPendingRequests()
+{
+    let functionName='fetchPendingRequests';
+    callBackend(functionName,'',handleFetchPending);
+}
+
+
+function sendPendingRequests()
+{
+    console.log("Send pending requests button has been hit");
+}
+
+
+function handleFetchPending(data)
+{
+    console.log(data);
+    let outputMessage='';
+
+    for (let i=0;i<data.length;i++)
+    {
+        outputMessage=outputMessage+data[i]["requester"] + "-" + data[i]["resource"];
+    }
+    document.getElementById("pendingTextArea").innerHTML=outputMessage;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -208,6 +233,7 @@ function mainPageInit()
     console.log("mainPageInit");
     attachStyleSheet();
     fetchResourceList();
+    fetchPendingRequests();
 }
 
 
