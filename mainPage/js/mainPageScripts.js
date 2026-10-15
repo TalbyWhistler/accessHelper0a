@@ -73,6 +73,18 @@ function handleFetchResourceInfo(data)
     document.getElementById("resourceListTextArea").innerHTML=totalOutput;
 }
 
+
+function handleUserSubmit()
+{
+    console.log('Handle user submit');
+    let submittedEmail=document.getElementById("userEmailInput").value;
+    let params={"userEmail":submittedEmail};
+    callBackend('userLookupByEmail',params,console.log);
+    
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 function callBackend(functionName,params,callback)
 {
     let fetchTarget='php/mainPageBackend.php';

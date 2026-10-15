@@ -6,6 +6,11 @@ function testFunction()
     return "Operations test function succeeded";
 }
 
+function userLookupByEmail($userEmail)
+{
+    $returnMessage='User lookup by email operations has fired with value '.$userEmail;
+    return $returnMessage;
+}
 
 function fetchResourceInfo($resourceName)
 {

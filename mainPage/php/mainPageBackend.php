@@ -19,6 +19,12 @@
                 $returnMessage=fetchResourceInfo($resourceName);
 
                 break;
+            case('userLookupByEmail'):
+                $params=$jsonInput["params"];
+                $userEmail=$params["userEmail"];
+                $returnMessage="userLookupByMail backend has fired with value ".$userEmail;
+                $returnMessage=userLookupByEmail($userEmail);
+                break;
     }
     echo json_encode($returnMessage);
 
