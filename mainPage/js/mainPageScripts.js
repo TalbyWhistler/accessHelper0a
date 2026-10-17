@@ -175,9 +175,31 @@ function fetchPendingRequests()
 }
 
 
+function fetchSentRequests()
+{
+    let functionName='fetchSentRequests';
+    callBackend(functionName,'',handleFetchSent);
+}
+
+
+function handleFetchSent(data)
+{
+    console.log(data);
+    let outputMessage='';
+
+    for (let i=0;i<data.length;i++)
+    {
+        outputMessage=outputMessage+data[i]["requester"] + "-" + data[i]["resource"];
+    }
+    document.getElementById("sentTextArea").innerHTML=outputMessage;
+}
+
+
 function sendPendingRequests()
 {
-    console.log("Send pending requests button has been hit");
+   // console.log("Send pending requests button has been hit");
+    let functionName='sendPendingRequests';
+    callBackend(functionName,'',mainPageInit);
 }
 
 
@@ -192,6 +214,8 @@ function handleFetchPending(data)
     }
     document.getElementById("pendingTextArea").innerHTML=outputMessage;
 }
+
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -234,6 +258,7 @@ function mainPageInit()
     attachStyleSheet();
     fetchResourceList();
     fetchPendingRequests();
+    fetchSentRequests();
 }
 
 

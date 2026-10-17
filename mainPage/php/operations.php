@@ -117,6 +117,29 @@ function fetchPendingRequests()
         }
 }
 
+
+function fetchsentRequests()
+{
+    $returnMessage='';
+    include_once 'connect.php';
+    $requestStatus='sent';
+    $stmt=$conn->prepare("select * from request2 where requestStatus=?");
+    $stmt->bind_param("s",$requestStatus);
+    $outputArray=[];
+    if ($stmt->execute())
+        {
+            $results=$stmt->get_result();
+            while($row=$results->fetch_assoc())
+                {
+                    $requesterId=$row["requesterId"];
+                    $resourceId=$row["resourceId"];
+                    $unitArray=['requester'=>$requesterId,'resource'=>$resourceId];
+                    array_push($outputArray,$unitArray);
+                }
+            return $outputArray;
+        }
+}
+
 function userLookupByEmail($userEmail)
 {
     include_once 'connect.php';
@@ -196,6 +219,45 @@ function fetchResourceList()
             {
 
             }
+}
+
+
+
+function sendPendingRequests()
+{
+    // transfers requests from one list to the next but the emails have to go out during this process.
+    include_once 'connect.php';
+    $returnMessage = 'sendPendingRequests operations has fired';
+    $stmt=$conn->prepare("select * from request2");
+    $pendingArray=[];
+    $sentStatus='sent';
+    if ($stmt->execute())
+        {
+            $returnMessage="";
+            $results=$stmt->get_result();
+            while($row=$results->fetch_assoc())
+                {
+                    $unitArray=[
+                        'requesterId'=>$row["requesterId"],
+                        'resourceId'=>$row["resourceId"]
+                    ];
+                    array_push($pendingArray,$unitArray);
+                }
+            for($i=0;$i<sizeof($pendingArray);$i++)
+                {
+                    $stmt=$conn->prepare("update request2 set requestStatus=? where requesterId=? and resourceId=?");
+                    $stmt->bind_param("sss",$sentStatus,$pendingArray[$i]['requesterId'],$pendingArray[$i]['resourceId']);
+                    if ($stmt->execute())
+                        {
+                            $returnMessage='Pending Requests Sent';
+                        }
+                }
+        }
+        else 
+            {
+                $returnMessage="Part 1 didn't execute";
+            }
+    return $returnMessage;
 }
 
 ?>
