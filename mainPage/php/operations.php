@@ -337,7 +337,7 @@ function composeMail($requesterId,$resourceId)
 
 
     $headers="From: webmaster@example.com"; 
-    /// mailersend access token mlsn.6f01d1d4772c8a49fb680d303305c14d12158b04f6addd349a5ac06230f98444
+   
    /// mail($to,$subject,$emailText,$headers);
     return $emailText;
 
