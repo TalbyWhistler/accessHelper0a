@@ -303,12 +303,15 @@ function composeMail($requesterId,$resourceId)
                     $firstName=$row["approverFirstName"];
                     $lastName=$row["approverLastName"];
                     $title=$row["approverTitle"];
+                    
                     $resource=$row["resourceName"];
+                    $email=$row["approverEmail"];
                     $unitArray=[
                             'firstName'=>$firstName,
                             'lastName'=>$lastName,
                             'title'=>$title,
-                            'resource'=>$resource
+                            'resource'=>$resource,
+                            'email'=>$email
                     ];
                     array_push($resourceArray,$unitArray);
                 }
@@ -321,6 +324,9 @@ function composeMail($requesterId,$resourceId)
              I'm writing to ask if it is permissable to give $requesterArray[0]['firstName'] $requesterArray[0]['lastName'] (who is a $requesterArray[0]['title'] on the $requesterArray[0]['team'] team) access to the $resourceArray[0]['resourceName'] resource.
     ";
     */
+    $subject ="Request to access ".$resourceArray[0]['resource'];
+    $to=$resourceArray[0]['email'];
+
     $emailText = "Hello ". 
                 $resourceArray[0]['firstName'] ." ".
                 $resourceArray[0]['lastName'].",\n". 
@@ -328,7 +334,40 @@ function composeMail($requesterId,$resourceId)
                 "(who is a ".$requesterArray[0]['title'] ." on the ". $requesterArray[0]['team']." team)". 
                 " access to the ".$resourceArray[0]['resource']." resource."."\n". 
                 "Please click on the appropriate link below to indicate your wishes.  Thank you!";
+
+
+    $headers="From: webmaster@example.com"; 
+    /// mailersend access token mlsn.6f01d1d4772c8a49fb680d303305c14d12158b04f6addd349a5ac06230f98444
+   /// mail($to,$subject,$emailText,$headers);
     return $emailText;
+
+
+    /*
+    MailerSend api body
+    {
+    "from": {
+      "email": "test@test-69oxl5epko2l785k.mlsender.net",
+      "name": "MailerSend"
+    },
+    "to": [
+      {
+        "email": "stephen.tatone@mohawkcollege.ca",
+        "name": "Stephen Tatone"
+      }
+    ],
+    "subject": "Hello from {{company}}!",
+    "text": "This is just a friendly hello from your friends at {{company}}.",
+    "html": "<b>This is just a friendly hello from your friends at {{company}}.</b>",
+    "personalization": [
+      {
+        "email": "stephen.tatone@mohawkcollege.ca",
+        "data": {
+          "company": "MailerSend"
+        }
+      }
+    ]
+  }
+    */
 
 }
 
