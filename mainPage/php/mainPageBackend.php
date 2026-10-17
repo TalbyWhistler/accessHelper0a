@@ -40,6 +40,10 @@
             case('sendPendingRequests'):
                 $returnMessage=sendPendingRequests();
                 break;
+            case('testComposeMail'):
+               // $returnMessage='test compose mailer backend has fired';
+                $returnMessage=composeMail('stephen.tatone@mohawkcollege.ca','The Blue Room');
+                break;
     }
     echo json_encode($returnMessage);
 

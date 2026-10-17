@@ -1,3 +1,3 @@
-Austin,Powers,Man of Mystery,Sweet Car,apowers@org.org 
-James,Bond,Superspy,The Green Room,jbond@org.org
-Johnny,Dangerously,British Superspy,The Blue Room,jdangerously@org.org
+Austin,Powers,Man of Mystery,Sweet Car,000748591@mohawkcollege.ca
+James,Bond,Superspy,The Green Room,000748591@mohawkcollege.ca
+Johnny,Dangerously,British Superspy,The Blue Room,000748591@mohawkcollege.ca

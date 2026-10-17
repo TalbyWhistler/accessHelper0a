@@ -249,7 +249,7 @@ function sendPendingRequests()
                     $stmt->bind_param("sss",$sentStatus,$pendingArray[$i]['requesterId'],$pendingArray[$i]['resourceId']);
                     if ($stmt->execute())
                         {
-                            $returnMessage='Pending Requests Sent';
+                          //  composeMail($pendingArray[$i]['requesterId'],$pendingArray[$i]['resourceId']);
                         }
                 }
         }
@@ -258,6 +258,78 @@ function sendPendingRequests()
                 $returnMessage="Part 1 didn't execute";
             }
     return $returnMessage;
+}
+
+
+function composeMail($requesterId,$resourceId)
+{
+    // check for requester information
+    include_once 'connect.php';
+    $returnMessage=
+    "
+        Test compose mail has fired with parameters $requesterId and $resourceId
+    ";
+    $requesterArray=[];
+    $resourceArray=[];
+    
+    $stmt=$conn->prepare("select * from orguserinfo where email=?");
+    $stmt->bind_param("s",$requesterId);
+    if($stmt->execute())
+        {
+            $results=$stmt->get_result();
+            while ($row=$results->fetch_assoc())
+                {
+                    $firstName=$row["firstName"];
+                    $lastName=$row["lastName"];
+                    $team=$row["team"];
+                    $title=$row["title"];
+                    $unitArray=[
+                        'firstName'=>$firstName,
+                        'lastName'=>$lastName,
+                        'team'=>$team,
+                        'title'=>$title
+                    ];
+                    array_push($requesterArray,$unitArray);
+                }
+        }
+    
+    $stmt=$conn->prepare("select * from resource2 where resourceName=?");
+    $stmt->bind_param("s",$resourceId);
+    if($stmt->execute())
+        {
+            $results=$stmt->get_result();
+            while($row=$results->fetch_assoc())
+                {
+                    $firstName=$row["approverFirstName"];
+                    $lastName=$row["approverLastName"];
+                    $title=$row["approverTitle"];
+                    $resource=$row["resourceName"];
+                    $unitArray=[
+                            'firstName'=>$firstName,
+                            'lastName'=>$lastName,
+                            'title'=>$title,
+                            'resource'=>$resource
+                    ];
+                    array_push($resourceArray,$unitArray);
+                }
+        }
+
+        /*
+    $emailText=
+    "
+        Greetings $resourceArray[0]['firstName'] $resourceArray[0]['lastName'],
+             I'm writing to ask if it is permissable to give $requesterArray[0]['firstName'] $requesterArray[0]['lastName'] (who is a $requesterArray[0]['title'] on the $requesterArray[0]['team'] team) access to the $resourceArray[0]['resourceName'] resource.
+    ";
+    */
+    $emailText = "Hello ". 
+                $resourceArray[0]['firstName'] ." ".
+                $resourceArray[0]['lastName'].",\n". 
+                "I'm writing to ask if it is permissable to give ".$requesterArray[0]['firstName']." ". $requesterArray[0]['lastName'].
+                "(who is a ".$requesterArray[0]['title'] ." on the ". $requesterArray[0]['team']." team)". 
+                " access to the ".$resourceArray[0]['resource']." resource."."\n". 
+                "Please click on the appropriate link below to indicate your wishes.  Thank you!";
+    return $emailText;
+
 }
 
 ?>

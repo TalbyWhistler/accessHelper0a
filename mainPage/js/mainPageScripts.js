@@ -168,6 +168,7 @@ function handleSubmitRequest()
     callBackend(functionName,params,mainPageInit)
 }
 
+
 function fetchPendingRequests()
 {
     let functionName='fetchPendingRequests';
@@ -181,18 +182,6 @@ function fetchSentRequests()
     callBackend(functionName,'',handleFetchSent);
 }
 
-
-function handleFetchSent(data)
-{
-    console.log(data);
-    let outputMessage='';
-
-    for (let i=0;i<data.length;i++)
-    {
-        outputMessage=outputMessage+data[i]["requester"] + "-" + data[i]["resource"];
-    }
-    document.getElementById("sentTextArea").innerHTML=outputMessage;
-}
 
 
 function sendPendingRequests()
@@ -215,7 +204,23 @@ function handleFetchPending(data)
     document.getElementById("pendingTextArea").innerHTML=outputMessage;
 }
 
+function handleFetchSent(data)
+{
+    console.log(data);
+    let outputMessage='';
 
+    for (let i=0;i<data.length;i++)
+    {
+        outputMessage=outputMessage+data[i]["requester"] + "-" + data[i]["resource"];
+    }
+    document.getElementById("sentTextArea").innerHTML=outputMessage;
+}
+
+function testComposeMail()
+{
+    let functionName='testComposeMail';
+    callBackend(functionName,'',console.log);
+}
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

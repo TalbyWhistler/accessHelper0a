@@ -97,6 +97,10 @@
                             $br.
                             $needInfoTextArea;
         $needInfoPanel=createElement('div','needInfoPanel','panel',$needInfoPanelContents);
+
+
+        ///////////////test compose mail////////////////////////////////
+        $testMailButton=createButton('testComposeMailButton','button','testComposeMail','Test Mailer');
         
         $totalOutput=$title.
                     $userInfoPanel.
@@ -106,6 +110,7 @@
                     $approvedPanel.
                     $rejectedPanel.
                     $needInfoPanel.
+                    $testMailButton.
                     $scriptLink;
 
         echo $totalOutput;
