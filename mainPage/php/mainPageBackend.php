@@ -44,6 +44,33 @@
                // $returnMessage='test compose mailer backend has fired';
                 $returnMessage=composeMail('stephen.tatone@mohawkcollege.ca','The Blue Room');
                 break;
+            case('fetchApprovedRequests'):
+                $returnMessage=fetchApprovedRequests();
+                //$returnMessage='fetch Approved requests backend';
+                break;
+            case('fetchRejectedRequests'):
+                $returnMessage='fetch rejected backend has fired';
+                $returnMessage=fetchRejectedRequests();
+                break;
+            case('fetchNeedInfoRequests'):
+                $returnMessage='fetch NeedInfo backend has fired';
+                $returnMessage=fetchNeedInfoRequests();
+                break;
+            case('purgeApproved'):
+                {
+                    $returnMessage=purgeApproved();
+                    break;
+                }
+            case('purgeRejected'):
+                {
+                    $returnMessage=purgeRejected();
+                    break;
+                }
+            case('purgeNeedInfo'):
+                {
+                    $returnMessage=purgeNeedInfo();
+                    break;
+                }
     }
     echo json_encode($returnMessage);
 

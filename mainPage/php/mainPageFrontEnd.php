@@ -80,7 +80,7 @@
        ////////////////////rejected requests panel //////////////////////////////////////////////////
        $rejectedLabel=createElement('label','rejectedLabel','label','rejected');
        $rejectedPurge=createButton('rejectedPurge','button','purgeRejected','Purge List');
-       $rejectedTextArea='<textarea id="approvedTextArea" name="approvedTextArea" rows="4" cols="40"></textarea>';
+       $rejectedTextArea='<textarea id="rejectedTextArea" name="rejectedTextArea" rows="4" cols="40"></textarea>';
 
         $rejectedPanelContents=
                     $rejectedLabel.$rejectedPurge.

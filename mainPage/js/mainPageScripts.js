@@ -21,6 +21,26 @@ function fetchResourceList()
 }
 
 
+function purgeApproved()
+{
+    //console.log("Purge approved");
+    let functionName='purgeApproved';
+    callBackend(functionName,'',mainPageInit);
+}
+
+function purgeRejected()
+{
+    let functionName='purgeRejected';
+    callBackend(functionName,'',mainPageInit);
+}
+
+function purgeNeedInfo()
+{
+    let functionName='purgeNeedInfo';
+    callBackend(functionName,'',mainPageInit);
+}
+
+
 // handles the resourceList data and populates the dropDown
 
 function handleFetchResourceList(data)
@@ -28,10 +48,10 @@ function handleFetchResourceList(data)
     let outputOpener=`<select onchange="fetchResourceInfo()"name="resourceDropdown" id="resourceDropdown">`;
     let outputCloser=`</select>`;
     let outputMiddle='<option value=""></option>';
-    console.log(data);
+  //  console.log(data);
     for(let i = 0;i<data.length;i++)
     {
-        console.log(data[i]["resourceName"]);
+    //    console.log(data[i]["resourceName"]);
         outputMiddle=outputMiddle+
         `
             <option value="${data[i]["resourceName"]}">${data[i]["resourceName"]}</option>
@@ -194,7 +214,7 @@ function sendPendingRequests()
 
 function handleFetchPending(data)
 {
-    console.log(data);
+   // console.log(data);
     let outputMessage='';
 
     for (let i=0;i<data.length;i++)
@@ -206,7 +226,7 @@ function handleFetchPending(data)
 
 function handleFetchSent(data)
 {
-    console.log(data);
+   // console.log(data);
     let outputMessage='';
 
     for (let i=0;i<data.length;i++)
@@ -256,6 +276,57 @@ function attachStyleSheet()
 
 
 
+function fetchRejectedRequests()
+{
+   // console.log("Fetch rejected requests");
+    let functionName="fetchRejectedRequests";
+    callBackend(functionName,'',writeRejectedRequests);
+}
+
+function fetchApprovedRequests()
+{
+   // console.log("Fetch approved requests");
+    let functionName='fetchApprovedRequests';
+    callBackend(functionName,'',writeApprovedRequests);
+}
+
+
+function fetchNeedInfoRequests()
+{
+    console.log("Fetch need info requests");
+    let functionName='fetchNeedInfoRequests';
+    callBackend(functionName,'',writeNeedInfoRequests);
+}
+
+function writeNeedInfoRequests(data)
+{
+    let outputString='';
+    for (let i=0;i<data.length;i++)
+    {
+        outputString=outputString+data[i]["requesterId"] + ":" + data[i]["resourceId"];
+    }
+    document.getElementById("needInfoTextArea").value=outputString;
+}
+
+function writeApprovedRequests(data)
+{
+    let outputString='';
+    for (let i=0;i<data.length;i++)
+    {
+        outputString=outputString+data[i]["requesterId"] + ":" + data[i]["resourceId"];
+    }
+    document.getElementById("approvedTextArea").value=outputString;
+}
+
+function writeRejectedRequests(data)
+{
+     let outputString='';
+    for (let i=0;i<data.length;i++)
+    {
+        outputString=outputString+data[i]["requesterId"] + ":" + data[i]["resourceId"];
+    }
+    document.getElementById("rejectedTextArea").value=outputString;
+}
 
 function mainPageInit()
 {
@@ -264,6 +335,10 @@ function mainPageInit()
     fetchResourceList();
     fetchPendingRequests();
     fetchSentRequests();
+    fetchApprovedRequests();
+    fetchRejectedRequests();
+    fetchNeedInfoRequests();
+
 }
 
 

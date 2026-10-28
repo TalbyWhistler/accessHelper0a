@@ -6,6 +6,124 @@ function testFunction()
     return "Operations test function succeeded";
 }
 
+function fetchApprovedRequests()
+{
+    include_once 'connect.php';
+    $status='Yes';
+    $stmt=$conn->prepare('select * from request2 where requestStatus=?');
+    $stmt->bind_param("s",$status);
+    
+    $outputArray=[];
+    if($stmt->execute())
+        {
+        $results=$stmt->get_result();
+        while($row=$results->fetch_assoc())
+            {
+                $requesterId=$row["requesterId"];
+                $resourceId=$row["resourceId"];
+                $unitArray=['requesterId'=>$requesterId,'resourceId'=>$resourceId];
+                array_push($outputArray,$unitArray);
+            }
+             return $outputArray;
+        }
+    return false;
+}
+
+function fetchRejectedRequests()
+{
+    include_once 'connect.php';
+    $status='No';
+    $stmt=$conn->prepare('select * from request2 where requestStatus=?');
+    $stmt->bind_param("s",$status);
+    
+    $outputArray=[];
+    if($stmt->execute())
+        {
+        $results=$stmt->get_result();
+        while($row=$results->fetch_assoc())
+            {
+                $requesterId=$row["requesterId"];
+                $resourceId=$row["resourceId"];
+                $unitArray=['requesterId'=>$requesterId,'resourceId'=>$resourceId];
+                array_push($outputArray,$unitArray);
+            }
+             return $outputArray;
+        }
+    return false;
+}
+
+function fetchNeedInfoRequests()
+{
+    include_once 'connect.php';
+    $status='NeedInfo';
+    $stmt=$conn->prepare('select * from request2 where requestStatus=?');
+    $stmt->bind_param("s",$status);
+    
+    $outputArray=[];
+    if($stmt->execute())
+        {
+        $results=$stmt->get_result();
+        while($row=$results->fetch_assoc())
+            {
+                $requesterId=$row["requesterId"];
+                $resourceId=$row["resourceId"];
+                $unitArray=['requesterId'=>$requesterId,'resourceId'=>$resourceId];
+                array_push($outputArray,$unitArray);
+            }
+             return $outputArray;
+        }
+    return false;
+}
+
+function purgeApproved()
+{
+    include_once 'connect.php';
+    $status='Yes';
+    $stmt=$conn->prepare('delete from request2 where requestStatus=?');
+    $stmt->bind_param("s",$status);
+    if($stmt->execute())
+        {
+            return 'Approved list purged';
+        }
+        else 
+            {
+                return 'issue';
+            }
+}
+
+function purgeRejected()
+{
+    include_once 'connect.php';
+    $status='No';
+    $stmt=$conn->prepare('delete from request2 where requestStatus=?');
+    $stmt->bind_param("s",$status);
+    if($stmt->execute())
+        {
+            return 'Rejected list purged';
+        }
+        else 
+            {
+                return 'issue';
+            }
+    
+}
+
+function purgeNeedInfo()
+{
+    include_once 'connect.php';
+    $status='NeedInfo';
+    $stmt=$conn->prepare('delete from request2 where requestStatus=?');
+    $stmt->bind_param("s",$status);
+    if($stmt->execute())
+        {
+            return 'Rejected list purged';
+        }
+        else 
+            {
+                return 'issue';
+            }
+}
+
 
 function createRequest($requester,$resource)
 {
