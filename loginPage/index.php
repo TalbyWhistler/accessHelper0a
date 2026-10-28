@@ -6,6 +6,10 @@
     <title>accessHelper Login Page</title>
 </head>
 <body>
-    <?php include 'php/loginPageFrontend.php' ?>
+     <?php // include '../frontPage/php/header_frontend.php' ?>
+    
+    <h1>Access Helper</h1>
+    <?php include 'php/navbar_login.php'?>
+    <?php  include 'php/loginPageFrontend.php' ?>
 </body>
 </html>

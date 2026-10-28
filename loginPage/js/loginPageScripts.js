@@ -1,3 +1,7 @@
+let testLoggedIn=false;
+let loggedIn=false;
+
+
 
 function attachStyleSheet()
 {
@@ -64,12 +68,23 @@ function callLoginBackend(functionName,params,callback)
 function writeToLoggedIn(message)
 {
     document.getElementById("loginStatusIndicator").innerHTML=message;
+    console.log(message);
+    if(message==' logged in.')
+    {
+        console.log("writeToLoggedIn says logged in");
+        loggedIn=true;
+    }
+    else 
+    {
+        console.log("Write to logged in says not logged in");
+        loggedIn=false;
+    }
 }
 
 function checkForLogin()
 {
     console.log("Checking if logged in");
-    console.log("For real");
+   // console.log("For real");
     callLoginBackend("checkIfLoggedIn","",writeToLoggedIn);
 }
 
@@ -78,6 +93,7 @@ function loginPageInit()
 {
     checkForLogin();
     attachStyleSheet();
+    //checkIfLoggedInB();
 }
 
 function handleLogoutSubmit()
@@ -94,6 +110,27 @@ function testFunction0a()
     checkForLogin();
 }
 
+
+function checkIfLoggedInB()
+{
+    console.log("Check if logged in B");
+    callLoginBackend("checkIfLoggedIn","",console.log);
+    /*
+    if (result)
+    {
+        console.log("Is logged in");
+    }
+    else 
+    {
+        console.log("Not logged in");
+    }
+        */
+}
+
+function handleCheckIfLoggedInB(data)
+{
+    console.log(data);
+}
 
 
 loginPageInit();

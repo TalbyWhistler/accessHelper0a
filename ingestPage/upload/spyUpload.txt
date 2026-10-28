@@ -1,3 +1,0 @@
-Austin,Powers,Man of Mystery,Sweet Car,000748591@mohawkcollege.ca
-James,Bond,Superspy,The Green Room,000748591@mohawkcollege.ca
-Johnny,Dangerously,British Superspy,The Blue Room,000748591@mohawkcollege.ca

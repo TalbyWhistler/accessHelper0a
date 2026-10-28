@@ -23,6 +23,20 @@
                 $returnMessage=checkIfLoggedIn();
                 break;
             }
+        case 'checkIfLoggedInB':
+            {
+                $result=checkIfLoggedInB();
+                if ($result)
+                    {
+                        $returnMessage='logged in';
+                    }
+                    else 
+                        {
+                            $returnMessage='not logged in';
+                        }
+                //$returnMessage=checkIfLoggedInB();
+                return;
+            }
         case 'logout':
             {
                 $returnMessage=logout();

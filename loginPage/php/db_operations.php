@@ -22,6 +22,29 @@ function loginFunction($email,$password)
     return $returnMessage;
 }
 
+// must finish this function to increment the bad login count on the database
+function incrementLoginCount($email)
+{
+    include 'connect.php';
+    // get login count increment login count write login count, if 
+    $stmt=$conn->prepare("select badLoginCount from logintable WHERE email=?");
+    $stmt->bind_param("s",$email);
+    $stmt->execute();
+    $results=$stmt->get_result();
+    while($row=$results->fetch_assoc())
+        {
+            $value=$row["badLoginCount"];
+        }
+    if ($value)
+        {
+            return true;
+        }
+        else 
+            {
+                return false;
+            }
+}
+
 function attemptLogin($email,$password)
 {
     include 'connect.php';
@@ -89,6 +112,40 @@ function checkIfLoggedIn()
     else 
         {
             return ' not logged in.';
+        }
+}
+
+
+function checkIfLoggedInB()
+{
+     include 'connect.php';
+    $cookieValues=$_COOKIE["accessHelper"]??'';
+    $cookieUsername=$_COOKIE["accessHelper"]??'';
+    $jsonValues=json_decode($cookieValues,true);
+  //  return json_encode($jsonValues);
+    $loggedInUser=$jsonValues["email"]??'';
+    $loggedInToken=$jsonValues["token"]??'';
+  //  return json_encode($jsonValues["username"]);
+   // $cookieUsername=$_COOKIE["linuxLab"];
+   // $cookieToken=$_COOKIE["linuxLab"]["token"]??'';
+   // return $cookieUsername;
+    $stmt=$conn->prepare("select count(*) as 'total' from logintable where logintoken=? and email=? and logindate=current_date()");
+    $stmt->bind_param("ss",$loggedInToken,$loggedInUser);
+    $stmt->execute();
+    $outputArray=[];
+    $result=$stmt->get_result();
+    while($row=$result->fetch_assoc())
+        {
+            $value=$row["total"];
+            array_push($outputArray,$value);
+        }
+    if($outputArray[0]>0)
+        {
+            return true;
+        }
+    else 
+        {
+            return false;
         }
 }
 
